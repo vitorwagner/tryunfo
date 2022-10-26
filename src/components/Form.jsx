@@ -17,6 +17,7 @@ class Form extends Component {
       onInputChange,
       onSaveButtonClick,
     } = this.props;
+
     return (
       <section>
         <input
