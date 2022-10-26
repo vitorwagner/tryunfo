@@ -1,6 +1,7 @@
 import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
+import Deck from './components/Deck';
 
 class App extends React.Component {
   constructor() {
@@ -82,7 +83,7 @@ class App extends React.Component {
   render() {
     const {
       name, description, attr1, attr2, attr3, image,
-      rarity, trunfo, isSaveButtonDisabled, hasTrunfo,
+      rarity, trunfo, isSaveButtonDisabled, hasTrunfo, deck,
     } = this.state;
 
     return (
@@ -114,6 +115,7 @@ class App extends React.Component {
           cardRare={ rarity }
           cardTrunfo={ trunfo }
         />
+        <Deck deck={ deck } />
       </>
     );
   }
