@@ -25,7 +25,7 @@ class Form extends Component {
           data-testid="name-input"
           value={ cardName }
           onChange={ onInputChange }
-          name=""
+          name="name"
           id=""
         />
         <input
@@ -33,13 +33,14 @@ class Form extends Component {
           data-testid="description-input"
           value={ cardDescription }
           onChange={ onInputChange }
+          name="description"
         />
         <input
           type="number"
           data-testid="attr1-input"
           value={ cardAttr1 }
           onChange={ onInputChange }
-          name=""
+          name="attr1"
           id=""
         />
         <input
@@ -47,7 +48,7 @@ class Form extends Component {
           data-testid="attr2-input"
           value={ cardAttr2 }
           onChange={ onInputChange }
-          name=""
+          name="attr2"
           id=""
         />
         <input
@@ -55,7 +56,7 @@ class Form extends Component {
           data-testid="attr3-input"
           value={ cardAttr3 }
           onChange={ onInputChange }
-          name=""
+          name="attr3"
           id=""
         />
         <input
@@ -63,7 +64,7 @@ class Form extends Component {
           data-testid="image-input"
           value={ cardImage }
           onChange={ onInputChange }
-          name=""
+          name="image"
           id=""
         />
         <label htmlFor="Rarity">
@@ -71,6 +72,7 @@ class Form extends Component {
           <select
             data-testid="rare-input"
             id="Rarity"
+            name="rarity"
             value={ cardRare }
             onChange={ onInputChange }
           >
@@ -84,7 +86,7 @@ class Form extends Component {
           data-testid="trunfo-input"
           checked={ cardTrunfo }
           onChange={ onInputChange }
-          name=""
+          name="trunfo"
           id=""
         />
         <button
@@ -103,9 +105,9 @@ class Form extends Component {
 Form.propTypes = {
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
-  cardAttr1: PropTypes.string.isRequired,
-  cardAttr2: PropTypes.string.isRequired,
-  cardAttr3: PropTypes.string.isRequired,
+  cardAttr1: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  cardAttr2: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  cardAttr3: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
