@@ -81,14 +81,20 @@ class Form extends Component {
             <option value="muito raro">Muito raro</option>
           </select>
         </label>
-        <input
-          type="checkbox"
-          data-testid="trunfo-input"
-          checked={ cardTrunfo }
-          onChange={ onInputChange }
-          name="trunfo"
-          id=""
-        />
+        {
+          hasTrunfo
+            ? <p>Você já tem um Super Trunfo em seu baralho</p>
+            : (
+              <input
+                type="checkbox"
+                data-testid="trunfo-input"
+                checked={ cardTrunfo }
+                onChange={ onInputChange }
+                name="trunfo"
+                id=""
+              />
+            )
+        }
         <button
           type="submit"
           disabled={ isSaveButtonDisabled }

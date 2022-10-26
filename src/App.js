@@ -15,6 +15,8 @@ class App extends React.Component {
       rarity: 'normal',
       trunfo: false,
       isSaveButtonDisabled: true,
+      deck: [],
+      hasTrunfo: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,6 +46,37 @@ class App extends React.Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
+    const {
+      name, description, attr1, attr2, attr3,
+      image, rarity, trunfo, hasTrunfo, imgUrl,
+    } = this.state;
+    this.setState((previousState) => ({
+      deck: [...previousState.deck, {
+        name,
+        description,
+        attr1,
+        attr2,
+        attr3,
+        image,
+        rarity,
+        trunfo,
+        imgUrl,
+      }],
+    }), () => {
+      this.setState({
+        name: '',
+        description: '',
+        attr1: 0,
+        attr2: 0,
+        attr3: 0,
+        image: '',
+        rarity: 'normal',
+        hasTrunfo: trunfo || hasTrunfo,
+        trunfo: false,
+        isSaveButtonDisabled: true,
+        imgUrl: '',
+      });
+    });
   };
 
   render() {
