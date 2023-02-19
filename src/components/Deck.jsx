@@ -6,11 +6,14 @@ class Deck extends Component {
   state = {
     nameQuery: '',
     rarityQuery: '',
-    trunfoQuery: '',
+    trunfoQuery: false,
   };
 
-  handleNameFilter = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
+  handleFilterChange = ({ target }) => {
+    console.log(target.value);
+    this.setState({
+      [target.name]: target.type === 'checkbox' ? target.checked : target.value,
+    });
   };
 
   rarityCheck = (query, card) => {
@@ -26,14 +29,21 @@ class Deck extends Component {
     }
   };
 
+  trunfoCheck = (query, card) => {
+    if (query) {
+      return card.trunfo;
+    }
+    return true;
+  };
+
   render() {
     const { deck, handleDelete } = this.props;
 
     const { nameQuery, rarityQuery, trunfoQuery } = this.state;
 
     const deckFiltered = deck.filter((card) => card.name.includes(nameQuery))
-      .filter((card) => this.rarityCheck(rarityQuery, card));
-      // .filter((card) => card.trunfo.includes(trunfoQuery));
+      .filter((card) => this.rarityCheck(rarityQuery, card))
+      .filter((card) => this.trunfoCheck(trunfoQuery, card));
 
     return (
       <>
@@ -41,20 +51,29 @@ class Deck extends Component {
           value={ nameQuery }
           name="nameQuery"
           type="text"
-          onChange={ this.handleNameFilter }
+          disabled={ trunfoQuery }
+          onChange={ this.handleFilterChange }
           data-testid="name-filter"
         />
         <select
           data-testid="rare-filter"
           name="rarityQuery"
           value={ rarityQuery }
-          onChange={ this.handleNameFilter }
+          disabled={ trunfoQuery }
+          onChange={ this.handleFilterChange }
         >
           <option value="todas">Todas</option>
           <option value="normal">Normal</option>
           <option value="raro">Raro</option>
           <option value="muito raro">Muito raro</option>
         </select>
+        <input
+          data-testid="trunfo-filter"
+          type="checkbox"
+          name="trunfoQuery"
+          value={ trunfoQuery }
+          onChange={ this.handleFilterChange }
+        />
         <div>
           {deckFiltered.map((card) => (
             <div key={ card.name }>

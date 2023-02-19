@@ -24,14 +24,16 @@ class App extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange = (event) => {
-    this.setState({ [event.target.name]: event.target.value }, () => {
-      const {
-        name, description, attr1, attr2, attr3, image,
-      } = this.state;
-      const maxAttr = 90;
-      const attrTotal = 210;
-      const newButtonDisabledState = name.length === 0
+  handleChange = ({ target }) => {
+    this.setState(
+      { [target.name]: target.type === 'checkbox' ? target.checked : target.value },
+      () => {
+        const {
+          name, description, attr1, attr2, attr3, image,
+        } = this.state;
+        const maxAttr = 90;
+        const attrTotal = 210;
+        const newButtonDisabledState = name.length === 0
       || description.length === 0
       || image.length === 0
       || (attr1 > maxAttr || attr1 < 0)
@@ -39,10 +41,11 @@ class App extends React.Component {
       || (attr3 > maxAttr || attr3 < 0)
       || (parseInt(attr1, 10) + parseInt(attr2, 10) + parseInt(attr3, 10) > attrTotal);
 
-      this.setState({
-        isSaveButtonDisabled: newButtonDisabledState,
-      });
-    });
+        this.setState({
+          isSaveButtonDisabled: newButtonDisabledState,
+        });
+      },
+    );
   };
 
   handleSubmit = (event) => {
