@@ -7,7 +7,7 @@ class Card extends Component {
   render() {
     const {
       cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
-      cardImage, cardRare, cardTrunfo,
+      cardImage = '', cardRare = 'normal', cardTrunfo,
     } = this.props;
 
     return (

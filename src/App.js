@@ -49,7 +49,7 @@ class App extends React.Component {
     event.preventDefault();
     const {
       name, description, attr1, attr2, attr3,
-      image, rarity, trunfo, hasTrunfo, imgUrl,
+      image = '', rarity = 'normal', trunfo, hasTrunfo, imgUrl,
     } = this.state;
     this.setState((previousState) => ({
       deck: [...previousState.deck, {
@@ -78,6 +78,15 @@ class App extends React.Component {
         imgUrl: '',
       });
     });
+  };
+
+  handleDelete = (name, trunfo) => {
+    const { deck } = this.state;
+    const newDeck = deck.filter((card) => card.name !== name);
+    this.setState({ deck: newDeck });
+    if (trunfo) {
+      this.setState({ hasTrunfo: false });
+    }
   };
 
   render() {
@@ -115,7 +124,7 @@ class App extends React.Component {
           cardRare={ rarity }
           cardTrunfo={ trunfo }
         />
-        <Deck deck={ deck } />
+        <Deck deck={ deck } handleDelete={ this.handleDelete } />
       </>
     );
   }

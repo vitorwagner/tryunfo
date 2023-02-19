@@ -4,7 +4,7 @@ import Card from './Card';
 
 class Deck extends Component {
   render() {
-    const { deck } = this.props;
+    const { deck, handleDelete } = this.props;
 
     return (
       <>
@@ -22,7 +22,14 @@ class Deck extends Component {
                 cardTrunfo={ card.trunfo }
               />
             </div>
-            <button type="button">Excluir</button>
+            <button
+              type="button"
+              data-testid="delete-button"
+              onClick={ () => handleDelete(card.name, card.trunfo) }
+            >
+              Excluir
+
+            </button>
           </div>
         ))}
       </>
@@ -41,6 +48,7 @@ Deck.propTypes = {
     rare: PropTypes.string,
     trunfo: PropTypes.bool,
   })).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default Deck;
