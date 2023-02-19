@@ -5,19 +5,35 @@ import Card from './Card';
 class Deck extends Component {
   state = {
     nameQuery: '',
+    rarityQuery: '',
+    trunfoQuery: '',
   };
 
   handleNameFilter = (event) => {
-    console.log(event.target.value);
-    this.setState({ nameQuery: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  rarityCheck = (query, card) => {
+    switch (query) {
+    case 'normal':
+      return card.rarity === 'normal';
+    case 'raro':
+      return card.rarity === 'raro';
+    case 'muito raro':
+      return card.rarity === 'muito raro';
+    default:
+      return true;
+    }
   };
 
   render() {
     const { deck, handleDelete } = this.props;
 
-    const { nameQuery } = this.state;
+    const { nameQuery, rarityQuery, trunfoQuery } = this.state;
 
-    const deckFiltered = deck.filter((card) => card.name.includes(nameQuery));
+    const deckFiltered = deck.filter((card) => card.name.includes(nameQuery))
+      .filter((card) => this.rarityCheck(rarityQuery, card));
+      // .filter((card) => card.trunfo.includes(trunfoQuery));
 
     return (
       <>
@@ -28,6 +44,17 @@ class Deck extends Component {
           onChange={ this.handleNameFilter }
           data-testid="name-filter"
         />
+        <select
+          data-testid="rare-filter"
+          name="rarityQuery"
+          value={ rarityQuery }
+          onChange={ this.handleNameFilter }
+        >
+          <option value="todas">Todas</option>
+          <option value="normal">Normal</option>
+          <option value="raro">Raro</option>
+          <option value="muito raro">Muito raro</option>
+        </select>
         <div>
           {deckFiltered.map((card) => (
             <div key={ card.name }>
@@ -38,8 +65,8 @@ class Deck extends Component {
                   cardAttr1={ card.attr1 }
                   cardAttr2={ card.attr2 }
                   cardAttr3={ card.attr3 }
-                  cardImage={ card.imgUrl }
-                  cardRare={ card.rare }
+                  cardImage={ card.image }
+                  cardRare={ card.rarity }
                   cardTrunfo={ card.trunfo }
                 />
               </div>
